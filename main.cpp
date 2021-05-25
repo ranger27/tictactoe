@@ -4,6 +4,6 @@
 using namespace std;
 
 int main(){
-    sayHi();
+    Board();
     return 0;
 }
