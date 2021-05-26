@@ -1,17 +1,18 @@
-#include "player.h"
+
 #ifndef BOARD_FILE_MEMBERS
 #define BOARD_FILE_MEMBERS
+#include "player.h"
+
 class Board
 {
     int row;
     int column;
-    // array of pointers to store each squares.
-    int *matrix[3];
+    char matrix[3][3];
+    Player &whoWonTheGame(Player &a, Player &b, int row, int column);
 
 public:
-    // constructs board
     Board();
     bool fillWith(Player &, int);
-    bool isGameWon();
+    void isGameWon();
 };
 #endif

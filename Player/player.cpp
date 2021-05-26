@@ -10,11 +10,18 @@ class Player
     char sign;
 
 public:
-    Player(string name);
+    Player(){}
+    // input of the player is overloaded
+    friend istream & operator >> (istream &,Player &);
     friend bool Board::fillWith(Player&, int);
+    friend void Board::isGameWon();
 };
 
-Player::Player(string name)
-{
-    this->name = name;
+
+istream & operator >> (istream & din,Player & p){
+    cout << "What is your name? "<<endl;
+    din >> p.name;
+    cout << "What is your preferred sign? ( O or X )"<<endl;
+    din >> p.sign;
+    return din;
 }

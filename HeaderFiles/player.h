@@ -1,15 +1,21 @@
-#include <string>
-#include "board.h"
-using namespace std; // for the string to have in this scope
 
 #ifndef PLAYER_FILE_MEMBERS
 #define PLAYER_FILE_MEMBERS
+#include "board.h"
+#include <string>
+
+using namespace std; // for the string to have in this scope
+
 class Player
 {
     string name;
     char sign;
+
 public:
-    Player(string name);
-    friend bool Board::fillWith(Player&, int);
+    Player() {}
+    // input of the player is overloaded
+    friend istream &operator>>(istream &, Player &);
+    friend bool Board::fillWith(Player &, int);
+    friend void Board::isGameWon();
 };
 #endif
