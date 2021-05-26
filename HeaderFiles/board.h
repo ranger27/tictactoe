@@ -12,7 +12,8 @@ class Board
 
 public:
     Board();
+    // friend class Player;
     bool fillWith(Player &, int);
-    void isGameWon();
+    void isGameWon(Player &a, Player &b);
 };
 #endif

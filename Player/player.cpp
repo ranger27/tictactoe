@@ -4,20 +4,6 @@
 
 using namespace std;
 
-class Player
-{
-    string name;
-    char sign;
-
-public:
-    Player(){}
-    // input of the player is overloaded
-    friend istream & operator >> (istream &,Player &);
-    friend bool Board::fillWith(Player&, int);
-    friend void Board::isGameWon();
-};
-
-
 istream & operator >> (istream & din,Player & p){
     cout << "What is your name? "<<endl;
     din >> p.name;
@@ -25,3 +11,5 @@ istream & operator >> (istream & din,Player & p){
     din >> p.sign;
     return din;
 }
+
+
