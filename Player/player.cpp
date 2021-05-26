@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "../HeaderFiles/board.h"
+#include "../HeaderFiles/player.h"
 
 using namespace std;
 

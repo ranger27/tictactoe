@@ -2,6 +2,8 @@
 #ifndef PLAYER_FILE_MEMBERS
 #define PLAYER_FILE_MEMBERS
 
+// include error of circular include was solved by forward declaration and friend class
+
 #include <string>
 
 using namespace std; // for the string to have in this scope
@@ -17,7 +19,7 @@ public:
 
     // input of the player is overloaded
     friend istream &operator>>(istream &, Player &);
-    friend class Board;
+    friend class Board;   
     // friend bool Board::fillWith(Player &, int);
     // friend void Board::isGameWon(Player &a, Player &b);
     // friend Player & Board::whoWonTheGame(Player &a, Player &b, int row, int column);
