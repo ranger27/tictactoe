@@ -6,17 +6,19 @@
 
 using namespace std;
 
-Player &Board::whoWonTheGame(Player &a, Player &b, int row, int column)
+void Board::whoWonTheGame(Player &a, Player &b, int row, int column)
 {
     if (a.sign == matrix[row][column])
     {
-        cout << a.name << " is winner..." << endl;
-        return a;
+        // cout << a.name << " is winner..." << endl;
+        a.amIWinner = true;
+        b.amIWinner = false;
     }
-    else  //(b.sign == matrix[row][column])
+    else //(b.sign == matrix[row][column])
     {
-        cout << b.name << " is winner..." << endl;
-        return b;
+        // cout << b.name << " is winner..." << endl;
+        a.amIWinner = false;
+        b.amIWinner = true;
     }
 }
 
@@ -35,6 +37,7 @@ Board::Board()
     }
 }
 
+// returns true if a position in square is successfully filled ,false otherwise.
 bool Board::fillWith(Player &p, int position)
 {
     if (position > 9 || position < 1)
@@ -56,11 +59,13 @@ bool Board::fillWith(Player &p, int position)
     }
 }
 
-void Board::isGameWon(Player &a, Player &b)
+// returns true for game win.
+bool Board::isGameWon(Player &a, Player &b)
 {
     if (matrix[0][0] == matrix[1][1] == matrix[2][2] || matrix[0][2] == matrix[1][1] == matrix[2][0])
     {
         whoWonTheGame(a, b, 1, 1);
+        return true;
     }
     //  for horizontal checking
     for (int i = 0; i < 3; i++)
@@ -68,6 +73,7 @@ void Board::isGameWon(Player &a, Player &b)
         if (matrix[i][0] == matrix[i][1] == matrix[i][2])
         {
             whoWonTheGame(a, b, i, 0);
+            return true;
             // if (a.sign == matrix[i][0])
             // {
             //     cout << a.name << " is winner..." << endl;
@@ -85,9 +91,76 @@ void Board::isGameWon(Player &a, Player &b)
         if (matrix[0][i] == matrix[1][i] == matrix[2][i])
         {
             whoWonTheGame(a, b, 0, i);
+            return true;
+        }
+    }
+
+    return false;
+}
+// prints the current board status
+void Board::showCurrentBoard()
+{
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if (matrix[i][j] == '0')
+            {
+                if (j != 2)
+                {
+                    cout << " \t\t|";
+                }
+                else
+                {
+                    cout << " \t\t";
+                }
+            }
+            else
+            {
+                if (j != 2)
+                {
+                    cout << "\t" << matrix[i][j] << "\t|";
+                }
+                else
+                {
+                    cout << "\t" << matrix[i][j] << "\t";
+                }
+            }
+        }
+        if (i != 2)
+        {
+            cout << "\n----------------------------------------------------\n";
+        }
+        else
+        {
+            cout << "\n\n";
         }
     }
 }
+// returns true if game is draw false otherwise.
+bool Board::isGameDraw(Player &a, Player &b)
+{
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
 
-
-
+            if (matrix[i][j] == '0')
+            {
+                // game not draw case
+                return false;
+            }
+        }
+    }
+    // from here the case is of all squares filled but game could be won also at last step.
+    // so, we need to check for isgamewon case.
+    if (isGameWon(a, b))
+    {
+        // i.e. if game is won then obviously it is not draw.
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
