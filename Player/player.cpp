@@ -4,12 +4,23 @@
 
 using namespace std;
 
-istream & operator >> (istream & din,Player & p){
-    cout << "What is your name? "<<endl;
-    din >> p.name;
-    cout << "What is your preferred sign? ( O or X )"<<endl;
-    din >> p.sign;
-    return din;
+Player::Player(char sign)
+{
+    cout << "Enter your name: \n";
+    cin >> name;
+    this->sign = sign;
 }
 
+void Player::display()
+{
+    cout << name << " has " << sign << " sign." << endl;
+}
 
+string Player::getName()
+{
+    return name;
+}
+
+bool Player::didIWonGame(){
+    return amIWinner;
+}

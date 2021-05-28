@@ -13,15 +13,19 @@ class Player
 {
     string name;
     char sign;
+    bool amIWinner=false;
 
 public:
-    Player() {}
-
+    Player(char sign);
+    string getName();
+    bool didIWonGame();
     // input of the player is overloaded
-    friend istream &operator>>(istream &, Player &);
-    friend class Board;   
+    friend class Board;
     // friend bool Board::fillWith(Player &, int);
     // friend void Board::isGameWon(Player &a, Player &b);
     // friend Player & Board::whoWonTheGame(Player &a, Player &b, int row, int column);
+
+    void display();
 };
+
 #endif
