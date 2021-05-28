@@ -24,7 +24,7 @@ void Board::whoWonTheGame(Player &a, Player &b, int row, int column)
 
 Board::Board()
 {
-    cout << "cons called" << endl;
+    // cout << "cons called" << endl;
     row = 3;
     column = 3;
     for (int i = 0; i < 3; i++)
@@ -32,12 +32,13 @@ Board::Board()
         for (int j = 0; j < 3; j++)
         {
             // initialize every squares with 0.
-            matrix[i][j] = '0';
+            matrix[i][j] = 48+ (3*i+j+1);
         }
     }
 }
 
 // returns true if a position in square is successfully filled ,false otherwise.
+// the first square is 1 not 0 (keep in mind)
 bool Board::fillWith(Player &p, int position)
 {
     if (position > 9 || position < 1)
@@ -47,7 +48,7 @@ bool Board::fillWith(Player &p, int position)
     }
 
     char &a = matrix[(position - 1) / 3][(position - 1) % 3];
-    if (a != '0')
+    if (a == 'O' || a=='X')
     {
         // i.e. already occupied
         return false;
@@ -62,7 +63,9 @@ bool Board::fillWith(Player &p, int position)
 // returns true for game win.
 bool Board::isGameWon(Player &a, Player &b)
 {
-    if (matrix[0][0] == matrix[1][1] == matrix[2][2] || matrix[0][2] == matrix[1][1] == matrix[2][0])
+
+    // diagonal checking
+    if ((matrix[0][0] == matrix[1][1]) and (matrix[0][0] == matrix[2][2]) || (matrix[0][2] == matrix[1][1]) and (matrix[0][2] == matrix[2][0]))
     {
         whoWonTheGame(a, b, 1, 1);
         return true;
@@ -70,7 +73,7 @@ bool Board::isGameWon(Player &a, Player &b)
     //  for horizontal checking
     for (int i = 0; i < 3; i++)
     {
-        if (matrix[i][0] == matrix[i][1] == matrix[i][2])
+        if ((matrix[i][0] == matrix[i][1]) and (matrix[i][1] == matrix[i][2]))
         {
             whoWonTheGame(a, b, i, 0);
             return true;
@@ -88,7 +91,7 @@ bool Board::isGameWon(Player &a, Player &b)
     for (int i = 0; i < 3; i++)
     {
 
-        if (matrix[0][i] == matrix[1][i] == matrix[2][i])
+        if ((matrix[0][i] == matrix[1][i]) and (matrix[1][i] == matrix[2][i]))
         {
             whoWonTheGame(a, b, 0, i);
             return true;
@@ -104,7 +107,7 @@ void Board::showCurrentBoard()
     {
         for (int j = 0; j < 3; j++)
         {
-            if (matrix[i][j] == '0')
+            if (matrix[i][j] != 'O' and matrix[i][j] != 'X')
             {
                 if (j != 2)
                 {
@@ -145,7 +148,7 @@ bool Board::isGameDraw(Player &a, Player &b)
         for (int j = 0; j < 3; j++)
         {
 
-            if (matrix[i][j] == '0')
+            if (matrix[i][j] != 'O' and matrix[i][j] != 'X')
             {
                 // game not draw case
                 return false;
