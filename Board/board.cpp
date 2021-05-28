@@ -32,7 +32,7 @@ Board::Board()
         for (int j = 0; j < 3; j++)
         {
             // initialize every squares with 0.
-            matrix[i][j] = 48+ (3*i+j+1);
+            matrix[i][j] = 48 + (3 * i + j + 1);
         }
     }
 }
@@ -48,7 +48,7 @@ bool Board::fillWith(Player &p, int position)
     }
 
     char &a = matrix[(position - 1) / 3][(position - 1) % 3];
-    if (a == 'O' || a=='X')
+    if (a == 'O' || a == 'X')
     {
         // i.e. already occupied
         return false;
@@ -107,27 +107,14 @@ void Board::showCurrentBoard()
     {
         for (int j = 0; j < 3; j++)
         {
-            if (matrix[i][j] != 'O' and matrix[i][j] != 'X')
+
+            if (j != 2)
             {
-                if (j != 2)
-                {
-                    cout << " \t\t|";
-                }
-                else
-                {
-                    cout << " \t\t";
-                }
+                cout << "\t" << matrix[i][j] << "\t|";
             }
             else
             {
-                if (j != 2)
-                {
-                    cout << "\t" << matrix[i][j] << "\t|";
-                }
-                else
-                {
-                    cout << "\t" << matrix[i][j] << "\t";
-                }
+                cout << "\t" << matrix[i][j] << "\t";
             }
         }
         if (i != 2)
